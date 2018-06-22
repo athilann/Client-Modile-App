@@ -33,30 +33,34 @@ module.exports = {
             bootstrap: 'modules/admin-lte/bootstrap/js/bootstrap.js'
         }
     },
-    plugins: [new webpack.ProvidePlugin({
-        $: 'jquery',
-        jQuery: 'jquery',
-        'window.jQuery': 'jquery'
-    }), new ExtractTextPlugin({
+    plugins: [new ExtractTextPlugin({
         filename: 'app.css'
     })],
     module: {
         rules: [{
-            test: /.js[x]?$/,
-            exclude: /node_modules/,
-            use: {
-                loader: "babel-loader"
+                test: /.js[x]?$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: "babel-loader"
+                }
+            },
+            // {
+            //     test: /\.s?[as]ss$/,
+            //     use: [
+            //         ExtractTextPlugin.loader,
+            //         'css-loader',
+            //         'sass-loader'
+            //     ]
+            // }
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader']
             }
-        }, {
-            test: /\.s?[as]ss$/,
-            use: [
-                ExtractTextPlugin.loader,
-                'css-loader',
-                'sass-loader'
-            ]
-        }, {
-            test: /\.woff|.woff2|.ttf|.eot|.svg|.png|.jpg*.*$/,
-            use: ['file-loader']
-        }],
+
+            , {
+                test: /\.woff|.woff2|.ttf|.eot|.svg|.png|.jpg*.*$/,
+                use: ['file-loader']
+            }
+        ],
     }
 };
